@@ -11,16 +11,19 @@ const sendEmail = async (data) => {
       pass: process.env.EMAIL_PASS
     }
   })
-  const productDetails = data.products
-    .map((product) => {
-      return `
+  const productDetails =
+    data.type === 'buy'
+      ? data.products
+          .map((product) => {
+            return `
         - Tên sản phẩm: ${product.productName}
         - Số lượng: ${product.quantity}
         - Giá: ${product.price} VND
         - Hình ảnh: ${product.image.split(',').join('\n                   ')} 
       `
-    })
-    .join('\n\n')
+          })
+          .join('\n\n')
+      : ''
   const mailOptions1 = {
     from: data.email,
     to: process.env.EMAIL_USER,
@@ -29,18 +32,18 @@ const sendEmail = async (data) => {
       Bạn nhận được một đơn hàng mới.
 
       Thông tin người đặt hàng:
-      - Tên: ${data.shipping_address.address_line1}
-      - Địa chỉ: ${data.shipping_address.address_line2}, ${data.shipping_address.city}, ${data.shipping_address.state}, ${data.shipping_address.country}
+      - Tên: ${data?.shipping_address?.address_line1}
+      - Địa chỉ: ${data?.shipping_address?.address_line2}, ${data?.shipping_address?.city}, ${data?.shipping_address?.state}, ${data?.shipping_address?.country}
       - Số điện thoại: ${data.phone}
       - Email: ${data.email}
 
       Thông tin sản phẩm:
       ${productDetails}
 
-      Tổng giá trị đơn hàng: ${data.total_price} VND
-      Phương thức thanh toán: ${data.shipping_address.payment_method}
+      Tổng giá trị đơn hàng: ${data?.total_price} VND
+      Phương thức thanh toán: ${data?.shipping_address?.payment_method}
 
-      Trạng thái: ${data.status}
+      Trạng thái: ${data?.status}
 
       Lời nhắn từ khách hàng:
       ${data.message}
