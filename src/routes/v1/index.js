@@ -73,6 +73,10 @@ const {
   updateQuestionsId,
   deleteQuestionsId
 } = require('../../controllers/question.controler')
+const {
+  getProfileControler,
+  updateAndCreateProfileId
+} = require('../../controllers/profile.controler')
 // ====================================================
 
 const router = require('express').Router()
@@ -138,6 +142,14 @@ router.post(
   asyncHandler(updateAndCreatefooterId)
 )
 router.get('/v1/api/footer', asyncHandler(getfooterControler))
+// profile
+router.post(
+  '/v1/api/profile',
+  authenToken,
+  uploadsMidleware.single('image'),
+  asyncHandler(updateAndCreateProfileId)
+)
+router.get('/v1/api/profile', asyncHandler(getProfileControler))
 
 // order
 router.post('/v1/api/order', asyncHandler(createOrderControler))
@@ -155,7 +167,7 @@ router.delete('/v1/api/transactionId', authenToken, asyncHandler(deleteTransacti
 // bai viet
 router.post('/v1/api/posts', uploadsMidleware.array('image[]'), asyncHandler(createPostsController))
 router.get('/v1/api/posts', asyncHandler(getPostsController))
-router.get('/v1/api/postId', authenToken, asyncHandler(getPostsId))
+router.get('/v1/api/postId', asyncHandler(getPostsId))
 router.put('/v1/api/postId', authenToken, asyncHandler(updatePostsId))
 router.delete('/v1/api/postId', authenToken, asyncHandler(deletePostsId))
 // câu hỏi thường gặp
