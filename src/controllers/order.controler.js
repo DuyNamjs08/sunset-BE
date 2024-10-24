@@ -14,7 +14,12 @@ const { createNoti } = require('../services/notification.service.js')
 const createOrderControler = async (req, res) => {
   try {
     const data = req.body
-    const order = await createOrder({ ...data, total_price: calcTotalPriceOrder(data.products) })
+    const order = await createOrder({
+      ...data,
+      total_price: calcTotalPriceOrder(data.products)
+        ? calcTotalPriceOrder(data.products)
+        : 'Liên hệ'
+    })
     if (!order) {
       res.status(500).json({ error: 'transaction error' })
     }

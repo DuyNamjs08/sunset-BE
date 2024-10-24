@@ -77,6 +77,14 @@ const {
   getProfileControler,
   updateAndCreateProfileId
 } = require('../../controllers/profile.controler')
+const { getBanner, updateBannerId } = require('../../controllers/banner.controler')
+const {
+  createprojectFinishsController,
+  getprojectFinishsController,
+  getprojectFinishsId,
+  updateprojectFinishsId,
+  deleteprojectFinishsId
+} = require('../../controllers/projectFinish.controler')
 // ====================================================
 
 const router = require('express').Router()
@@ -170,6 +178,16 @@ router.get('/v1/api/posts', asyncHandler(getPostsController))
 router.get('/v1/api/postId', asyncHandler(getPostsId))
 router.put('/v1/api/postId', authenToken, asyncHandler(updatePostsId))
 router.delete('/v1/api/postId', authenToken, asyncHandler(deletePostsId))
+// dự án đã hoàn thành
+router.post(
+  '/v1/api/finish',
+  uploadsMidleware.array('image[]'),
+  asyncHandler(createprojectFinishsController)
+)
+router.get('/v1/api/finish', asyncHandler(getprojectFinishsController))
+router.get('/v1/api/finishId', asyncHandler(getprojectFinishsId))
+router.put('/v1/api/finishId', authenToken, asyncHandler(updateprojectFinishsId))
+router.delete('/v1/api/finishId', authenToken, asyncHandler(deleteprojectFinishsId))
 // câu hỏi thường gặp
 router.post(
   '/v1/api/questions',
@@ -203,5 +221,13 @@ router.get('/v1/api/promotion', asyncHandler(getPromotesController))
 router.get('/v1/api/promotionId', authenToken, asyncHandler(getPromotesId))
 router.put('/v1/api/promotion', authenToken, asyncHandler(updatePromotesId))
 router.delete('/v1/api/promotionId', authenToken, asyncHandler(deletePromotesId))
+//  phần banner
+router.post(
+  '/v1/api/banner',
+  authenToken,
+  uploadsMidleware.array('image[]'),
+  asyncHandler(updateBannerId)
+)
+router.get('/v1/api/banner', asyncHandler(getBanner))
 
 module.exports = router
