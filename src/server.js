@@ -13,7 +13,7 @@ dotenv.config()
 app.use(cors())
 app.options('*', cors())
 const hostname = 'localhost'
-const port = 8000
+const port = 8018
 app.use(bodyParser.json())
 connectDb()
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
