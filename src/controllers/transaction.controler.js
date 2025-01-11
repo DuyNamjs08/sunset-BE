@@ -18,6 +18,7 @@ const getTransactionControler = async (req, res) => {
 const getTransactionMonthControler = async (req, res) => {
   try {
     const response = await getTransactionByMonth(req.query)
+    console.log(response)
     const monthsArray = Array.from({ length: 12 }, (_, i) => i + 1)
 
     const finalResult = monthsArray.map((month) => {

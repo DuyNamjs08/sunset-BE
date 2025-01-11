@@ -9,13 +9,13 @@ exports.getOrder = async (query) => {
   })
 }
 exports.getOrderByMonth = async () => {
-  const year = new Date().getFullYear()
+  const year = 2010
   return await OrderModel.aggregate([
     {
       $match: {
         createdAt: {
           $gte: new Date(`${year}-01-01T00:00:00.000Z`),
-          $lt: new Date(`${year + 1}-01-01T00:00:00.000Z`)
+          $lt: new Date(2010)
         }
       }
     },

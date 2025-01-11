@@ -11,13 +11,13 @@ exports.getUserAll = async (query) => {
   return await UserModel.paginate(query)
 }
 exports.getUserByMonth = async () => {
-  const year = new Date().getFullYear()
+  const year = 2010
   return await UserModel.aggregate([
     {
       $match: {
         createdAt: {
           $gte: new Date(`${year}-01-01T00:00:00.000Z`),
-          $lt: new Date(`${year + 1}-01-01T00:00:00.000Z`)
+          $lt: new Date()
         }
       }
     },

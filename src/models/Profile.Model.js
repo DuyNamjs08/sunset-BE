@@ -15,6 +15,7 @@ const profileSchema = new Schema(
     tax_code: { type: String },
     facebook: { type: String },
     message: { type: String },
+    youtube: { type: String },
     file_pdf: { type: String },
     description: { type: String },
     image: { type: String, default: '' },

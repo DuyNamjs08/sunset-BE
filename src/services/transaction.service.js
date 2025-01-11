@@ -7,13 +7,13 @@ exports.getTransaction = async (query) => {
   return await TransactionModel.paginate(query)
 }
 exports.getTransactionByMonth = async () => {
-  const year = new Date().getFullYear()
+  const year = 2010
   return await TransactionModel.aggregate([
     {
       $match: {
         createdAt: {
           $gte: new Date(`${year}-01-01T00:00:00.000Z`),
-          $lt: new Date(`${year + 1}-01-01T00:00:00.000Z`)
+          $lt: new Date()
         }
       }
     },
@@ -25,9 +25,9 @@ exports.getTransactionByMonth = async () => {
     },
     {
       $project: {
-        month: '$_id', // Sử dụng trường _id để tạo trường mới month
+        month: '$_id',
         count: 1,
-        _id: 0 // Loại bỏ trường _id
+        _id: 0
       }
     },
     {
